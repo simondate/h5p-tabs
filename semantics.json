@@ -1,8 +1,8 @@
 [
   {
-    "name": "panels",
+    "name": "content",
     "type": "list",
-    "label": "Panels",
+    "label": "Content",
     "entity": "panel",
     "max": 100,
     "min": 1,

@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
-import TabsContainer from '../styles/components/tabs';
+import TabsContainer from '../components/Tabs';
 
 
 H5P.Tabs = (function ($) {
@@ -23,11 +23,10 @@ H5P.Tabs = (function ($) {
     $container.html('').addClass('h5p-tabs').append(self.$content);
 
     ReactDOM.render(
-      <TabsContainer content={this.params}/>,
+      <TabsContainer content={this.params.content}/>,
       document.getElementsByClassName('h5p-tabs')[0]
     )
   };
-
 
   return Tabs;
 })();
