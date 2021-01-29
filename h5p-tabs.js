@@ -8,6 +8,7 @@ H5P.Tabs = (function ($) {
   var nextIdPrefix = 0;
   var nextLooperId = 0;
   var allowedLoopers = [];
+  var $tabsDisplay;
   /**
    * Initialize a new Tabs
    *
@@ -24,7 +25,8 @@ H5P.Tabs = (function ($) {
     // Set default behavior.
     this.params = $.extend({}, {
       hTag: "h2",
-      panels: []
+      panels: [],
+      displayedContent: 0,
     }, params);
 
     this.contentData = contentData;
@@ -62,6 +64,25 @@ H5P.Tabs = (function ($) {
 
     // Insert content
     $container.html('').addClass('h5p-tabs').append(self.$content);
+    $tabsDisplay = self.createDisplay();
+    $container.append($tabsDisplay);
+    self.updateDisplay(0);
+  };
+
+  Tabs.prototype.createDisplay = function () {
+    return $('<div>', {
+      'class': 'h5p-tabs-content',
+      'aria-labelledby': '',
+      'aria-hidden': 'true'
+    });
+  }
+
+  /**
+   * Changes the tab display to the chosen index
+   * @param  {} index
+   */
+  Tabs.prototype.updateDisplay = function(index) {
+    $($tabsDisplay).html(this.params.panels[index].content.params.text)
   };
 
   /**
@@ -72,11 +93,11 @@ H5P.Tabs = (function ($) {
     var self = this;
     var titleId = 'h5p-panel-link-' + this.idPrefix + id;
     var contentId = 'h5p-panel-content-' + self.idPrefix + id;
-
     var toggleCollapse = function () {
       if (self.$expandedTitle === undefined || !self.$expandedTitle.is($title)) {
         self.collapseExpandedPanels();
         self.expandPanel($title, $content);
+        self.addContent($title, $content)
       }
       else {
         self.collapsePanel($title, $content);
@@ -97,7 +118,9 @@ H5P.Tabs = (function ($) {
       'aria-controls': contentId,
       'html': self.params.panels[id].title,
       'on': {
-        'click': toggleCollapse,
+        'click': function() {
+          self.updateDisplay(id)
+        },
         'keydown': function (event) {
           switch (event.keyCode) {
             case 38:   // Up
@@ -143,21 +166,8 @@ H5P.Tabs = (function ($) {
       }
     });
 
-    // Create panel content
-    var $content = $('<div>', {
-      'id': contentId,
-      'class': 'h5p-panel-content',
-      'role': 'region',
-      'aria-labelledby': titleId,
-      'aria-hidden': 'true'
-    });
-
-    // Add the content itself to the content section
-    self.instances[id].attach($content);
-
     // Gather all content
     self.elements.push($title[0]);
-    self.elements.push($content[0]);
   };
 
   /**
