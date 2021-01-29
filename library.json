@@ -17,7 +17,7 @@
   "license": "MIT",
   "preloadedJs": [
     {
-      "path": "h5p-tabs.js"
+      "path": "dist/dist.js"
     }
   ],
   "preloadedDependencies": [

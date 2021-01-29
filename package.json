@@ -1,0 +1,35 @@
+{
+  "name": "h5p-tabs",
+  "version": "1.0.0",
+  "description": "H5P interaction for displaying content",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cross-env NODE_ENV=production ./node_modules/.bin/webpack -p",
+    "watch": "./node_modules/.bin/webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simondate/h5p-tabs.git"
+  },
+  "keywords": [
+    "h5p"
+  ],
+  "author": "Simon Date",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/simondate/h5p-tabs/issues"
+  },
+  "homepage": "https://github.com/simondate/h5p-tabs#readme",
+  "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "webpack": "^5.18.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "html-webpack-plugin": "^4.5.1",
+    "webpack-cli": "^4.4.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
