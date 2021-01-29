@@ -6,7 +6,6 @@ export default class TabsContainer extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log(props)
         this.state = {
             currentTab: 0
         }
@@ -14,12 +13,25 @@ export default class TabsContainer extends React.Component {
       }
 
     tabPressed(index) {
-        console.log(index)
         this.setOpenTab(index);
     }
 
     setOpenTab(index) {
         this.setState({currentTab: index});
+    }
+
+    componentDidMount() {
+        let context = this;
+        setTimeout(function(){
+            context.props.H5PTabs.trigger('resize');
+        }, 10);
+    }
+
+    componentDidUpdate() {
+        let context = this;
+        setTimeout(function() {
+            context.props.H5PTabs.trigger('resize');
+        }, 10);
     }
 
     render() {
@@ -32,8 +44,12 @@ export default class TabsContainer extends React.Component {
             />
         );
 
-        console.log(this.state.currentTab)
         const displayText = this.props.content[this.state.currentTab].content.params.text;
+        let graphic = this.props.content[this.state.currentTab].graphic;
+
+        if(graphic) {
+            graphic.path = H5P.getPath(graphic.path, this.props.contentId);
+        }
 
         return (
             <div className='h5p-tabs-inner'>
@@ -41,7 +57,13 @@ export default class TabsContainer extends React.Component {
                     {tabButtons}
                 </div>
                 <div className='tab-display'>
-                    <div className='tab-display-inner' dangerouslySetInnerHTML={{__html: displayText}}>
+                    <div className='tab-display-inner'>
+                        <div className='tab-display-text' dangerouslySetInnerHTML={{__html: displayText}} />
+                        {graphic &&
+                            <div className="tab-graphic">
+                                <img src={graphic.path}/>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

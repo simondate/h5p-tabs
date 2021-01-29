@@ -8,12 +8,12 @@ H5P.Tabs = (function ($) {
   function Tabs(params, contentId, contentData) {
     this.params = params;
     this.contentId = contentId;
-    this.cotnentData = contentData;
+    this.contentData = contentData;
     H5P.EventDispatcher.call(this);
   }
 
-  // Tabs.prototype = Object.create(H5P.EventDispatcher.prototype);
-  // Tabs.prototype.constructor = Tabs;
+  Tabs.prototype = Object.create(H5P.EventDispatcher.prototype);
+  Tabs.prototype.constructor = Tabs;
 
   /**
    * Append field to wrapper.
@@ -21,9 +21,8 @@ H5P.Tabs = (function ($) {
    */
   Tabs.prototype.attach = function ($container) {
     $container.html('').addClass('h5p-tabs').append(self.$content);
-
     ReactDOM.render(
-      <TabsContainer content={this.params.content}/>,
+      <TabsContainer H5PTabs={this} content={this.params.content} contentId={this.contentId}/>,
       document.getElementsByClassName('h5p-tabs')[0]
     )
   };

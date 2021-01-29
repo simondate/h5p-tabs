@@ -8,8 +8,7 @@ export default class TabButton extends React.Component {
     }
 
     handleClick(event) {
-        console.log(event.target)
-        this.props.tabPressed(this.props.index); // pass any argument to the callback
+        this.props.tabPressed(this.props.index);
     }
 
     render() {
