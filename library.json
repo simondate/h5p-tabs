@@ -1,5 +1,5 @@
 {
-  "title": "Accordion",
+  "title": "Tabs",
   "majorVersion": 1,
   "minorVersion": 0,
   "patchVersion": 26,
@@ -8,7 +8,7 @@
   ],
   "runnable": 1,
   "fullscreen": 0,
-  "machineName": "H5P.Accordion",
+  "machineName": "H5P.Tabs",
   "author": "Joubel",
   "coreApi": {
     "majorVersion": 1,
@@ -17,7 +17,7 @@
   "license": "MIT",
   "preloadedJs": [
     {
-      "path": "h5p-accordion.js"
+      "path": "h5p-tabs.js"
     }
   ],
   "preloadedDependencies": [
@@ -29,7 +29,7 @@
   ],
   "preloadedCss": [
     {
-      "path": "h5p-accordion.css"
+      "path": "h5p-tabs.css"
     }
   ]
 }

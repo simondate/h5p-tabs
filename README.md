@@ -1,7 +1,7 @@
-H5P Accordion
+H5P Tabs
 ==========
 
-Accordion content type for H5P
+Tabs content type for H5P
 
 ## License
 

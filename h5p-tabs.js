@@ -1,15 +1,15 @@
 /**
- * Accordion module
+ * Tabs module
  *
  * @param {jQuery} $
  */
-H5P.Accordion = (function ($) {
+H5P.Tabs = (function ($) {
 
   var nextIdPrefix = 0;
   var nextLooperId = 0;
   var allowedLoopers = [];
   /**
-   * Initialize a new Accordion
+   * Initialize a new Tabs
    *
    * @class H5P.InteractiveVideo
    * @extends H5P.EventDispatcher
@@ -17,7 +17,7 @@ H5P.Accordion = (function ($) {
    * @param {Number} contentId Content identification
    * @param {Object} contentData Object containing task specific content data
    */
-  function Accordion(params, contentId, contentData) {
+  function Tabs(params, contentId, contentData) {
     this.contentId = contentId;
     H5P.EventDispatcher.call(this);
 
@@ -38,14 +38,14 @@ H5P.Accordion = (function ($) {
     this.idPrefix = (nextIdPrefix++) + '-';
   }
 
-  Accordion.prototype = Object.create(H5P.EventDispatcher.prototype);
-  Accordion.prototype.constructor = Accordion;
+  Tabs.prototype = Object.create(H5P.EventDispatcher.prototype);
+  Tabs.prototype.constructor = Tabs;
 
   /**
    * Append field to wrapper.
    * @param {jQuery} container the jQuery object which this module will attach itself to.
    */
-  Accordion.prototype.attach = function ($container) {
+  Tabs.prototype.attach = function ($container) {
     var self = this;
 
     if (self.$content === undefined) {
@@ -61,14 +61,14 @@ H5P.Accordion = (function ($) {
     }
 
     // Insert content
-    $container.html('').addClass('h5p-accordion').append(self.$content);
+    $container.html('').addClass('h5p-tabs').append(self.$content);
   };
 
   /**
    * Create HTML for Panel.
    * @param {number} id
    */
-  Accordion.prototype.createPanel = function (id) {
+  Tabs.prototype.createPanel = function (id) {
     var self = this;
     var titleId = 'h5p-panel-link-' + this.idPrefix + id;
     var contentId = 'h5p-panel-content-' + self.idPrefix + id;
@@ -165,7 +165,7 @@ H5P.Accordion = (function ($) {
    *
    * (Will be more sophisticated in future version)
    */
-  Accordion.prototype.triggerConsumed = function () {
+  Tabs.prototype.triggerConsumed = function () {
     var xAPIEvent = this.createXAPIEventTemplate({
       id: 'http://activitystrea.ms/schema/1.0/consume',
       display: {
@@ -182,7 +182,7 @@ H5P.Accordion = (function ($) {
   /**
    * Collapse all expanded panels
    */
-  Accordion.prototype.collapseExpandedPanels = function () {
+  Tabs.prototype.collapseExpandedPanels = function () {
     var self = this;
     if (this.$expandedTitle !== undefined) {
       this.$expandedTitle
@@ -206,7 +206,7 @@ H5P.Accordion = (function ($) {
    * @param {jQuery} $title The title of the panel that is to be expanded
    * @param {jQuery} $panel The panel that is to be expanded
    */
-  Accordion.prototype.expandPanel = function($title, $panel) {
+  Tabs.prototype.expandPanel = function($title, $panel) {
     var self = this;
 
     $title.attr('aria-expanded', true)
@@ -230,7 +230,7 @@ H5P.Accordion = (function ($) {
    * @param {jQuery} $title The title of the panel that is to be collapsed
    * @param {jQuery} $panel The panel that is to be collapsed
    */
-  Accordion.prototype.collapsePanel = function($title, $panel) {
+  Tabs.prototype.collapsePanel = function($title, $panel) {
     var self = this;
     $title.attr('aria-expanded', false)
       .removeClass('h5p-panel-expanded');
@@ -247,7 +247,7 @@ H5P.Accordion = (function ($) {
   /**
    * Makes sure that the heigt of the iframe gets animated
    */
-  Accordion.prototype.animateResize = function () {
+  Tabs.prototype.animateResize = function () {
     var self = this;
     self.stopWorkLoop(this.resizing);
     this.resizing = self.startWorkLoop(function () {
@@ -255,7 +255,7 @@ H5P.Accordion = (function ($) {
     }, 40);
   };
 
-  Accordion.prototype.startWorkLoop = function (func, wait) {
+  Tabs.prototype.startWorkLoop = function (func, wait) {
     var myId = nextLooperId++;
     var self = this;
     allowedLoopers.push(myId);
@@ -276,16 +276,16 @@ H5P.Accordion = (function ($) {
     return myId;
   };
 
-  Accordion.prototype.stopWorkLoop = function (myId) {
+  Tabs.prototype.stopWorkLoop = function (myId) {
     var index;
     while ((index = allowedLoopers.indexOf(myId)) !== -1) {
       allowedLoopers.splice(index, 1);
     }
   };
 
-  Accordion.prototype.allowedToWork = function (myId) {
+  Tabs.prototype.allowedToWork = function (myId) {
     return allowedLoopers.indexOf(myId) !== -1;
   };
 
-  return Accordion;
+  return Tabs;
 })(H5P.jQuery);
